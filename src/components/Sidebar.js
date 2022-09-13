@@ -1,14 +1,13 @@
 import React from "react";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import ArchiveIcon from "@material-ui/icons/Archive";
-import UnarchiveIcon from "@material-ui/icons/Unarchive";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 import SidebarRow from "./SidebarRow";
 
 export const Sidebar = () => {
   return (
-    <div className="p-2 mt-5  sticky max-w-[600px] md:min-w-[300px] hidden sm:block">
+    <div className="p-2 mt-5  sticky max-w-[600px] md:min-w-[280px] hidden sm:block">
       <SidebarRow
         Icon={DescriptionOutlinedIcon}
         title={"Notes"}
