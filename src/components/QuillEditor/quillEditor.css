@@ -1,0 +1,33 @@
+.quill {
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ql-toolbar.ql-snow {
+  border: none;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
+.ql-snow.ql-toolbar:after {
+  content: none;
+}
+
+.ql-toolbar.ql-snow .ql-formats {
+  margin-right: 0;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.ql-container.ql-snow {
+  border: none;
+  max-height: 15rem;
+  font-size: 1rem;
+}
