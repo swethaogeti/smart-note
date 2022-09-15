@@ -3,13 +3,12 @@ import { Navbar } from "../components/Navbar";
 import { NoteCard } from "../components/NoteCard";
 import { Sidebar } from "../components/Sidebar";
 import { TextEditor } from "../components/TextEditor";
-import Masonry from "react-masonry-css";
-import { TextEditorModal } from "../components/TextEditorModal";
+
 export const HomePage = () => {
   return (
     <div className="h-screen">
       <Navbar />
-      {/* <TextEditorModal /> */}
+
       <main className="flex">
         <Sidebar />
         <div className="flex flex-col justify-center items-center mx-auto pt-5">

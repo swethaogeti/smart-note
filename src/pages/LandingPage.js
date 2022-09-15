@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import smartnoteImg from "../assests/heroImg.svg";
+import { useAuth } from "../contexts/AuthProvider";
 
 export const LandingPage = () => {
+  const { user } = useAuth();
+
   return (
     <div className="xl:w-[80%] mx-auto p-4">
       <div className="flex flex-wrap lg:flex-nowrap  justify-between ">
@@ -16,17 +19,32 @@ export const LandingPage = () => {
           <i className=" sm:text-[1.1rem] font-[500] text-gray-600 pt-4 ">
             A place for everything and everything in its place!
           </i>
-          <div>
-            <Link to="/notes">
-              <button
-                className="bg-gray-700
+
+          {user.user ? (
+            <div>
+              <Link to="/notes">
+                <button
+                  className="bg-gray-700
                text-white text-[1.3rem] px-5 py-1 rounded-md  my-4
              font-[600]"
-              >
-                Join Now
-              </button>
-            </Link>
-          </div>
+                >
+                  Go TO NOTES
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <Link to="/login">
+                <button
+                  className="bg-gray-700
+               text-white text-[1.3rem] px-5 py-1 rounded-md  my-4
+             font-[600]"
+                >
+                  Join Now
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
         <img src={smartnoteImg} className="w-full sm:w-[600px] mx-auto"></img>
       </div>
