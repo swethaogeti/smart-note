@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useEffect, useReducer } from "react";
 import { createContext } from "react";
 import { SET_NOTES } from "../constants";
@@ -10,7 +10,7 @@ const NotesContext = createContext();
 export const NotesProvider = ({ children }) => {
   const { user } = useAuth();
   const [notes, dispatchNotes] = useReducer(notesReducer, []);
-
+  const [uniqueTags, setUniqueTags] = useState([]);
   useEffect(() => {
     if (user.token) {
       (async () => {
@@ -26,7 +26,11 @@ export const NotesProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <NotesContext.Provider value={{ notes }}>{children}</NotesContext.Provider>
+    <NotesContext.Provider
+      value={{ notes, uniqueTags, setUniqueTags, dispatchNotes }}
+    >
+      {children}
+    </NotesContext.Provider>
   );
 };
 

@@ -10,9 +10,9 @@ export const TrashPage = () => {
 
       <main className="flex ">
         <Sidebar />
-        <div className="mt-8 md:columns-3 columns-1 sm:columns-2 lg:columns-4 ">
+        {/* <div className="mt-8 md:columns-3 columns-1 sm:columns-2 lg:columns-4 ">
           <NoteCard text="Elizabeth II (Elizabeth Alexandra Mary; 21 April 1926 – 8 September 2022) was Queen of the United Kingdom and other Commonwealth realms" />
-        </div>
+        </div> */}
       </main>
     </div>
   );
