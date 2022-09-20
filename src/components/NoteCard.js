@@ -9,14 +9,34 @@ import { Priority } from "./Priority";
 import { ColorPallete } from "./ColorPallete";
 import { Tags } from "./Tags";
 import { matchPath, useLocation, useNavigate } from "react-router-dom";
-export const NoteCard = ({ text }) => {
+import Moment from "react-moment";
+import { addNoteToArchivesService } from "../services/services";
+import { useAuth } from "../contexts/AuthProvider";
+import { useArchives } from "../contexts/ArchiveProvider";
+import { SET_ARCHIVE, SET_NOTES } from "../constants";
+import { useNotes } from "../contexts/NotesProvider";
+
+export const NoteCard = ({ note }) => {
   const { pathname } = useLocation();
+  const { user } = useAuth();
+  const { dispatchArchives } = useArchives();
+  const { dispatchNotes } = useNotes();
+  const addToArchiveHandle = async () => {
+    const response = await addNoteToArchivesService(user.token, note);
+    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
+    dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
+    console.log(response);
+  };
 
   return (
-    <div className="max-w-full break-inside-avoid-column mt-2 border-[1px] border-gray-300 space-y-3 mx-4 sm:mx-0   sm:max-w-[290px]  p-4 max-h-fit shadow-[0_3px_5px_rgb(0,0,0,0.2)] rounded-md cursor-pointer">
+    <div
+      style={{ backgroundColor: note.color }}
+      className="max-w-full 
+    break-inside-avoid-column mt-2 border-[1px] border-gray-300 space-y-3 mx-4 sm:mx-0   sm:w-[290px]  p-4 max-h-fit shadow-[0_3px_5px_rgb(0,0,0,0.2)] rounded-md cursor-pointer"
+    >
       <div className="flex justify-between items-center">
         <button className="outline outline-1  text-gray-800 font-[600] text-[1rem] p-1 rounded-sm">
-          Low
+          {note.priority}
         </button>
         {pathname !== "/trash" && (
           <button>
@@ -25,13 +45,29 @@ export const NoteCard = ({ text }) => {
         )}
       </div>
       <h1 className="sm:text-[1.3rem]  leading-5 font-[600] text-gray-700 overflow-hidden text-ellipsis">
-        kfjkdfkgasgdjatekjkjdueyyweqyw
+        {note.title}
       </h1>
-      <div className=" break-words text-[.9rem] text-black">{text}</div>
+      <div
+        className=" break-words text-[.9rem] text-black"
+        dangerouslySetInnerHTML={{ __html: note.note }}
+      ></div>
+      <div className="flex">
+        {note?.tags?.map((item) => {
+          return (
+            <div>
+              <button className="px-[2px] py-[1px] m-1 text-[1rem] bg-white border-2 text-black border-gray-400 rounded-md">
+                {item}
+              </button>
+            </div>
+          );
+        })}
+      </div>
 
       <div className="flex space-x-1 items-center">
         <ScheduleOutlinedIcon className="btn" />
-        <p className="text-[.9rem] text-gray-600">a min ago</p>
+        <p className="text-[.9rem] text-gray-600">
+          <Moment fromNow>{note.created}</Moment>
+        </p>
       </div>
       <div className="space-x-3 flex">
         {pathname === "/notes" && (
@@ -41,7 +77,12 @@ export const NoteCard = ({ text }) => {
             <Priority />
           </div>
         )}
-        {pathname === "/notes" && <ArchiveOutlinedIcon className="btn" />}
+        {pathname === "/notes" && (
+          <ArchiveOutlinedIcon
+            className="btn"
+            onClick={() => addToArchiveHandle()}
+          />
+        )}
         {pathname === "/archive" && <UnarchiveIcon className="btn" />}
         {pathname === "/trash" && <RestoreFromTrashIcon className="btn" />}
         {pathname !== "/notes" && <DeleteIcon className="btn" />}
