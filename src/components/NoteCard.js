@@ -15,6 +15,8 @@ import {
   addNoteToTrashService,
   restoreNoteFromArchiveService,
   removeNoteFromArchivesService,
+  restoreNoteFromTrashService,
+  removeNoteFromTrashService,
 } from "../services/services";
 import { useAuth } from "../contexts/AuthProvider";
 import { useArchives } from "../contexts/ArchiveProvider";
@@ -50,6 +52,17 @@ export const NoteCard = ({ note }) => {
   const removeNoteFromArchivesHandle = async () => {
     const response = await removeNoteFromArchivesService(user.token, note._id);
     dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
+  };
+
+  const restoreFromTrashHandler = async () => {
+    const response = await restoreNoteFromTrashService(user.token, note._id);
+    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
+    dispatchTrash({ type: SET_TRASH, payload: response.data.trash });
+  };
+
+  const removeNoteFromTrashHandle = async () => {
+    const response = await removeNoteFromTrashService(user.token, note._id);
+    dispatchTrash({ type: SET_TRASH, payload: response.data.trash });
   };
   return (
     <div
@@ -112,7 +125,12 @@ export const NoteCard = ({ note }) => {
             onClick={() => restoreNoteFromArchiveHandle()}
           />
         )}
-        {pathname === "/trash" && <RestoreFromTrashIcon className="btn" />}
+        {pathname === "/trash" && (
+          <RestoreFromTrashIcon
+            className="btn"
+            onClick={() => restoreFromTrashHandler()}
+          />
+        )}
         {pathname !== "/notes" && pathname == "/archive" && (
           <DeleteIcon
             className="btn"
@@ -121,7 +139,10 @@ export const NoteCard = ({ note }) => {
         )}
 
         {pathname !== "/notes" && pathname == "/trash" && (
-          <DeleteIcon className="btn" />
+          <DeleteIcon
+            className="btn"
+            onClick={() => removeNoteFromTrashHandle()}
+          />
         )}
 
         {pathname !== "/archive" && pathname !== "/trash" && (
