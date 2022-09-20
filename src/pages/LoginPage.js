@@ -57,12 +57,12 @@ export const LoginPage = () => {
             LOGIN
           </h3>
           <div className="flex flex-col">
-            <h4 className="text-sm">Username</h4>
+            <h4 className="text-sm">Email</h4>
             <input
               className="flex-1 p-1 border-2 rounded-[3px] outline-0"
-              placeholder="enter your username"
-              type="name"
-              name="username"
+              placeholder="enter your email"
+              type="email"
+              name="email"
               value={userLogin.email}
               onChange={(e) => changeHandlerLogin(e)}
             ></input>
@@ -93,7 +93,12 @@ export const LoginPage = () => {
             GUEST LOGIN
           </button>
           <div className="flex space-x-1">
-            <p className="text-gray-500 ">Don't have an account create one </p>
+            <p className="text-gray-500 ">
+              Don't have an account create one{" "}
+              <Link to="/signup">
+                <span className="text-purple-600 font-[600]">signup</span>
+              </Link>
+            </p>
           </div>
         </form>
       </div>
