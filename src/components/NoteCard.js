@@ -13,6 +13,8 @@ import Moment from "react-moment";
 import {
   addNoteToArchivesService,
   addNoteToTrashService,
+  restoreNoteFromArchiveService,
+  removeNoteFromArchivesService,
 } from "../services/services";
 import { useAuth } from "../contexts/AuthProvider";
 import { useArchives } from "../contexts/ArchiveProvider";
@@ -26,6 +28,7 @@ export const NoteCard = ({ note }) => {
   const { dispatchArchives } = useArchives();
   const { dispatchNotes } = useNotes();
   const { dispatchTrash } = useTrash();
+
   const addToArchiveHandle = async () => {
     const response = await addNoteToArchivesService(user.token, note);
     dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
@@ -38,6 +41,16 @@ export const NoteCard = ({ note }) => {
     dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
   };
 
+  const restoreNoteFromArchiveHandle = async () => {
+    const response = await restoreNoteFromArchiveService(user.token, note._id);
+    dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
+    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
+  };
+
+  const removeNoteFromArchivesHandle = async () => {
+    const response = await removeNoteFromArchivesService(user.token, note._id);
+    dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
+  };
   return (
     <div
       style={{ backgroundColor: note.color }}
@@ -93,9 +106,24 @@ export const NoteCard = ({ note }) => {
             onClick={() => addToArchiveHandle()}
           />
         )}
-        {pathname === "/archive" && <UnarchiveIcon className="btn" />}
+        {pathname === "/archive" && (
+          <UnarchiveIcon
+            className="btn"
+            onClick={() => restoreNoteFromArchiveHandle()}
+          />
+        )}
         {pathname === "/trash" && <RestoreFromTrashIcon className="btn" />}
-        {pathname !== "/notes" && <DeleteIcon className="btn" />}
+        {pathname !== "/notes" && pathname == "/archive" && (
+          <DeleteIcon
+            className="btn"
+            onClick={() => removeNoteFromArchivesHandle()}
+          />
+        )}
+
+        {pathname !== "/notes" && pathname == "/trash" && (
+          <DeleteIcon className="btn" />
+        )}
+
         {pathname !== "/archive" && pathname !== "/trash" && (
           <DeleteOutlinedIcon
             className="btn"

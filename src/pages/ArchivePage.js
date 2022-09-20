@@ -5,7 +5,7 @@ import { useArchives } from "../contexts/ArchiveProvider";
 
 export const ArchivePage = () => {
   const { archives } = useArchives();
-  console.log(archives);
+
   return (
     <div className="h-screen">
       <Navbar />
