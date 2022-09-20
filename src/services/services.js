@@ -140,7 +140,7 @@ export const getTrashService = async (token) => {
   }
 };
 
-export const addNoteToTrashservice = async (token, note) => {
+export const addNoteToTrashService = async (token, note) => {
   try {
     const response = await axios.post(
       `/api/notes/trash/${note._id}`,

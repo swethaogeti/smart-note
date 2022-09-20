@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import axios from "axios";
+import { USER_DATA, USER_TOKEN } from "../constants";
+
 export const SignUpPage = () => {
   const { setUser } = useAuth();
   const [userSignup, setUserSignup] = useState({
@@ -25,11 +27,17 @@ export const SignUpPage = () => {
     try {
       const response = await axios.post("/api/auth/signup", userSignup);
       console.log(response);
+
+      localStorage.setItem(USER_TOKEN, response.data.encodedToken);
+      localStorage.setItem(
+        USER_DATA,
+        JSON.stringify(response.data.createdUser)
+      );
       setUser({
         user: response.data.createdUser,
         token: response.data.encodedToken,
       });
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.log(error.response.data);
     }

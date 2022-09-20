@@ -82,7 +82,7 @@ export const LoginPage = () => {
 
           <button
             className="w-full p-1 bg-purple-600 text-white font-bold rounded-[3px] tracking-wider cursor-pointer"
-            onClick={() => loginUserHandle(true)}
+            onClick={() => loginUserHandle(false)}
           >
             LOGIN
           </button>

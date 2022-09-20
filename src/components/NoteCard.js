@@ -10,22 +10,33 @@ import { ColorPallete } from "./ColorPallete";
 import { Tags } from "./Tags";
 import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import Moment from "react-moment";
-import { addNoteToArchivesService } from "../services/services";
+import {
+  addNoteToArchivesService,
+  addNoteToTrashService,
+} from "../services/services";
 import { useAuth } from "../contexts/AuthProvider";
 import { useArchives } from "../contexts/ArchiveProvider";
-import { SET_ARCHIVE, SET_NOTES } from "../constants";
+import { SET_ARCHIVE, SET_NOTES, SET_TRASH } from "../constants";
 import { useNotes } from "../contexts/NotesProvider";
+import { useTrash } from "../contexts/TrashProvider";
 
 export const NoteCard = ({ note }) => {
   const { pathname } = useLocation();
   const { user } = useAuth();
   const { dispatchArchives } = useArchives();
   const { dispatchNotes } = useNotes();
+  const { dispatchTrash } = useTrash();
   const addToArchiveHandle = async () => {
     const response = await addNoteToArchivesService(user.token, note);
-    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
     dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
+    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
     console.log(response);
+  };
+
+  const addNoteToTrashHandle = async () => {
+    const response = await addNoteToTrashService(user.token, note);
+    dispatchTrash({ type: SET_TRASH, payload: response.data.trash });
+    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
   };
 
   return (
@@ -87,7 +98,10 @@ export const NoteCard = ({ note }) => {
         {pathname === "/trash" && <RestoreFromTrashIcon className="btn" />}
         {pathname !== "/notes" && <DeleteIcon className="btn" />}
         {pathname !== "/archive" && pathname !== "/trash" && (
-          <DeleteOutlinedIcon className="btn" />
+          <DeleteOutlinedIcon
+            className="btn"
+            onClick={() => addNoteToTrashHandle()}
+          />
         )}
       </div>
     </div>

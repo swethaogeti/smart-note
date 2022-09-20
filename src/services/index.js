@@ -1,7 +1,7 @@
 export {
   addNoteService,
   addNoteToArchivesService,
-  addNoteToTrashservice,
+  addNoteToTrashService,
   deleteNoteService,
   getArchivesService,
   getNotesService,
