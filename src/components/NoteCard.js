@@ -30,7 +30,6 @@ export const NoteCard = ({ note }) => {
     const response = await addNoteToArchivesService(user.token, note);
     dispatchArchives({ type: SET_ARCHIVE, payload: response.data.archives });
     dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
-    console.log(response);
   };
 
   const addNoteToTrashHandle = async () => {

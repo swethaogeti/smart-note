@@ -3,12 +3,11 @@ import { useState, useRef } from "react";
 import { useNotes } from "../contexts/NotesProvider";
 import { useOnClickOutside } from "../hooks/useOnClickOutside";
 export const Tags = ({ tags, toggleTag }) => {
-  console.log(tags);
   const ref = useRef();
   const [isModalOpen, setModalOpen] = useState(false);
   useOnClickOutside(ref, () => setModalOpen(false));
   const { uniqueTags, setUniqueTags } = useNotes();
-  // console.log(uniqueTags);
+
   const [newTag, setNewTag] = useState("");
   return (
     <div>
