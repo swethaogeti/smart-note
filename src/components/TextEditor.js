@@ -6,7 +6,7 @@ import { ColorPallete } from "./ColorPallete";
 import { Tags } from "./Tags";
 import { editorReducer } from "../reducers/editorReducer";
 import { useReducer } from "react";
-import { useLocation } from "react-router-dom";
+import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import {
   CLEAR_EDITOR,
   COLOR,
@@ -17,11 +17,12 @@ import {
   TITLE,
 } from "../constants";
 import { useAuth } from "../contexts/AuthProvider";
-import { addNoteService } from "../services/services";
+import { addNoteService, updateNoteService } from "../services/services";
 import { useNotes } from "../contexts/NotesProvider";
 
 export const TextEditor = ({ editorState }) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [editor, dispatchEditor] = useReducer(editorReducer, editorState);
   const { note, title, color, priority, tags } = editor;
@@ -32,9 +33,18 @@ export const TextEditor = ({ editorState }) => {
       ...editor,
       created: new Date(),
     });
-    console.log(response);
     dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
     dispatchEditor({ type: CLEAR_EDITOR });
+  };
+
+  const editNoteHandler = async () => {
+    const response = await updateNoteService(user.token, {
+      ...editor,
+      created: new Date(),
+    });
+    dispatchNotes({ type: SET_NOTES, payload: response.data.notes });
+    console.log(response.data.notes);
+    navigate("/notes");
   };
   return (
     <div
@@ -56,7 +66,9 @@ export const TextEditor = ({ editorState }) => {
           }
         ></input>
 
-        <PushPinOutlinedIcon className="cursor-pointer btn" />
+        {pathname == "/notes/:noteId" && (
+          <PushPinOutlinedIcon className="cursor-pointer btn" />
+        )}
       </div>
       <QuillEditor
         value={note}
@@ -96,12 +108,21 @@ export const TextEditor = ({ editorState }) => {
           />
         </div>
         <div>
-          <button
-            className="bg-gray-700 text-white sm:p-1 w-10 sm:w-14 rounded-md font-[600] cursor-pointer"
-            onClick={addNoteHandler}
-          >
-            Add
-          </button>
+          {matchPath("/note", pathname) ? (
+            <button
+              className="bg-gray-700 text-white sm:p-1 w-10 sm:w-14 rounded-md font-[600] cursor-pointer"
+              onClick={addNoteHandler}
+            >
+              Add
+            </button>
+          ) : (
+            <button
+              className="bg-gray-700 text-white sm:p-1 w-10 sm:w-14 rounded-md font-[600] cursor-pointer"
+              onClick={editNoteHandler}
+            >
+              add
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ export const ArchivePage = () => {
 
       <main className="flex ">
         <Sidebar />
-        <div className="mt-8 md:columns-3 columns-1 sm:columns-2 lg:columns-4 ">
+        <div className="mt-8 md:columns-3 columns-1 sm:columns-2 lg:columns-4 space-y-2 ">
           {archives?.map((archive) => {
             return <NoteCard note={archive} />;
           })}
