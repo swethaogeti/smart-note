@@ -6,7 +6,7 @@ import { SidebarMobileView } from "./SidebarMobileView";
 export const Navbar = () => {
   return (
     <div className=" sticky top-0 z-10 bg-white shadow-sm ">
-      <div className="flex w-full items-center justify-between mx-auto p-3 ">
+      <div className="flex w-full items-center justify-between mx-auto p-3  ">
         <div>
           <Link to="/">
             <h1 className="text-purple-500 text-[2rem] font-bold hidden md:block tracking-widest">

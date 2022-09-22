@@ -18,7 +18,7 @@ export const Sidebar = () => {
         title={"Archive"}
         path={"archive"}
       />
-      <SidebarRow Icon={LabelOutlinedIcon} title={"Label"} path={"labels"} />
+      {/* <SidebarRow Icon={LabelOutlinedIcon} title={"Label"} path={"labels"} /> */}
       <SidebarRow Icon={DeleteOutlineIcon} title={"Trash"} path={"trash"} />
     </div>
   );
