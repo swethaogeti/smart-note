@@ -4,6 +4,7 @@ import { TextEditor } from "./components/TextEditor";
 import { TextEditorModal } from "./components/TextEditorModal";
 import { ArchivePage } from "./pages/ArchivePage";
 import { HomePage } from "./pages/HomePage";
+import { LabelsPage } from "./pages/LabelsPage";
 import { LandingPage } from "./pages/LandingPage";
 import { LoginPage } from "./pages/LoginPage";
 import { SignUpPage } from "./pages/SignUpPage";
@@ -21,7 +22,8 @@ function App() {
         </Route>
 
         <Route path="/trash" element={<TrashPage />}></Route>
-        <Route path="archive" element={<ArchivePage />}></Route>
+        <Route path="/labels" element={<LabelsPage />}></Route>
+        <Route path="/archive" element={<ArchivePage />}></Route>
       </Routes>
     </div>
   );

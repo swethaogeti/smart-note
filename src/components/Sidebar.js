@@ -1,8 +1,8 @@
 import React from "react";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
-import ArchiveIcon from "@material-ui/icons/Archive";
+import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-
+import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 import SidebarRow from "./SidebarRow";
 
 export const Sidebar = () => {
@@ -13,7 +13,12 @@ export const Sidebar = () => {
         title={"Notes"}
         path={"notes"}
       />
-      <SidebarRow Icon={ArchiveIcon} title={"Archive"} path={"archive"} />
+      <SidebarRow
+        Icon={ArchiveOutlinedIcon}
+        title={"Archive"}
+        path={"archive"}
+      />
+      <SidebarRow Icon={LabelOutlinedIcon} title={"Label"} path={"labels"} />
       <SidebarRow Icon={DeleteOutlineIcon} title={"Trash"} path={"trash"} />
     </div>
   );

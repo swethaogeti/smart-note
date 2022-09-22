@@ -6,7 +6,7 @@ import { NoteCard } from "../components/NoteCard";
 import { Sidebar } from "../components/Sidebar";
 import { TextEditor } from "../components/TextEditor";
 import { useNotes } from "../contexts/NotesProvider";
-
+import { SortBox } from "../components/SortBox";
 export const HomePage = () => {
   const { notes } = useNotes();
 
@@ -26,6 +26,9 @@ export const HomePage = () => {
               note: "",
             }}
           />
+          <div className="flex w-full relative justify-end p-4">
+            <SortBox className="absolute" />
+          </div>
           <div className="mt-10  md:columns-3 space-y-2 columns-1 sm:columns-2 lg:columns-4 ">
             {notes.map((note) => (
               <NoteCard note={note} />

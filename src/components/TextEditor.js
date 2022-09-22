@@ -108,7 +108,7 @@ export const TextEditor = ({ editorState }) => {
           />
         </div>
         <div>
-          {matchPath("/note", pathname) ? (
+          {pathname === "/notes" ? (
             <button
               className="bg-gray-700 text-white sm:p-1 w-10 sm:w-14 rounded-md font-[600] cursor-pointer"
               onClick={addNoteHandler}
