@@ -1,6 +1,6 @@
 import { SET_ARCHIVE } from "../constants";
 
-export const archiveReducer = (action, state) => {
+export const archiveReducer = (state, action) => {
   switch (action.type) {
     case SET_ARCHIVE:
       return action.payload;

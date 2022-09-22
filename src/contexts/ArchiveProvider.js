@@ -28,6 +28,7 @@ export const ArchiveProvider = ({ children }) => {
       dispatchArchives({ type: SET_ARCHIVE, payload: [] });
     }
   }, [user]);
+
   return (
     <ArchiveContext.Provider value={{ archives, dispatchArchives }}>
       {children}

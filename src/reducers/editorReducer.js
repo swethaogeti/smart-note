@@ -9,8 +9,6 @@ export const initialEditorState = {
 };
 
 export const editorReducer = (state, action) => {
-  console.log(action);
-  console.log(state);
   switch (action.type) {
     case TITLE:
       return { ...state, title: action.payload };
