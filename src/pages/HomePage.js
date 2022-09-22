@@ -1,14 +1,26 @@
-import axios from "axios";
-import React from "react";
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { NoteCard } from "../components/NoteCard";
 import { Sidebar } from "../components/Sidebar";
 import { TextEditor } from "../components/TextEditor";
 import { useNotes } from "../contexts/NotesProvider";
-import { SortBox } from "../components/SortBox";
+import { useFilters } from "../contexts/FiltersProvider";
+import {
+  getPriorityNotes,
+  getSortedNotes,
+  getTagsNotes,
+} from "../utils/filterOperations";
 export const HomePage = () => {
   const { notes } = useNotes();
+  const { filters } = useFilters();
+
+  const { sortBy, priorities, tags } = filters;
+
+  const sortNotes = getSortedNotes(notes, sortBy);
+
+  const prioritiesNotes = getPriorityNotes(sortNotes, priorities);
+  const tagsNotes = getTagsNotes(prioritiesNotes, tags);
+  const filterNotes = tagsNotes;
 
   return (
     <div className="h-screen">
@@ -17,21 +29,21 @@ export const HomePage = () => {
       <main className="flex">
         <Sidebar />
         <div className="flex flex-col justify-center items-center mx-auto pt-5 pb-24">
-          <TextEditor
-            editorState={{
-              title: "",
-              color: "#FFFFFF",
-              tags: [],
-              priority: "Low",
-              note: "",
-            }}
-          />
-          <div className="flex w-full relative justify-end p-4">
-            <SortBox className="absolute" />
+          <div>
+            <TextEditor
+              editorState={{
+                title: "",
+                color: "#FFFFFF",
+                tags: [],
+                priority: "Low",
+                note: "",
+              }}
+            />
           </div>
+
           <div className="mt-10  md:columns-3 space-y-2 columns-1 sm:columns-2 lg:columns-4 ">
-            {notes.map((note) => (
-              <NoteCard note={note} />
+            {filterNotes.map((note) => (
+              <NoteCard note={note} key={note._id} />
             ))}
           </div>
         </div>

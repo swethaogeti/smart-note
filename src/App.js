@@ -1,6 +1,6 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { TextEditor } from "./components/TextEditor";
+
 import { TextEditorModal } from "./components/TextEditorModal";
 import { ArchivePage } from "./pages/ArchivePage";
 import { HomePage } from "./pages/HomePage";

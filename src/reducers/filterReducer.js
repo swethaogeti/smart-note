@@ -17,13 +17,13 @@ export const filterReducer = (state, action) => {
       return { ...state, sortBy: action.payload };
 
     case FILTER_PRIORITIES:
-      const newPriorities = state.priorities.include(action.payload)
+      const newPriorities = state.priorities.includes(action.payload)
         ? state.priorities.filter((priority) => priority !== action.payload)
         : [...state.priorities, action.payload];
       return { ...state, priorities: newPriorities };
 
     case FILTER_TAGS:
-      const newTags = state.tags.include(action.payload)
+      const newTags = state.tags.includes(action.payload)
         ? state.tags.filter((tag) => tag !== action.payload)
         : [...state.tags, action.payload];
       return { ...state, tags: newTags };

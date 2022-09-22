@@ -6,7 +6,7 @@ import { ColorPallete } from "./ColorPallete";
 import { Tags } from "./Tags";
 import { editorReducer } from "../reducers/editorReducer";
 import { useReducer } from "react";
-import { matchPath, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CLEAR_EDITOR,
   COLOR,
@@ -66,7 +66,7 @@ export const TextEditor = ({ editorState }) => {
           }
         ></input>
 
-        {pathname == "/notes/:noteId" && (
+        {pathname === "/notes/:noteId" && (
           <PushPinOutlinedIcon className="cursor-pointer btn" />
         )}
       </div>

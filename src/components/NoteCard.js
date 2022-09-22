@@ -1,14 +1,14 @@
 import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
-import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
+
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import EditIcon from "@mui/icons-material/Edit";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TextEditorModal } from "./TextEditorModal";
-import { matchPath, useLocation, useNavigate } from "react-router-dom";
-import { TextEditor } from "./TextEditor";
+
+import { useLocation, useNavigate } from "react-router-dom";
+
 import Moment from "react-moment";
 import {
   addNoteToArchivesService,
@@ -23,9 +23,6 @@ import { useArchives } from "../contexts/ArchiveProvider";
 import { SET_ARCHIVE, SET_NOTES, SET_TRASH } from "../constants";
 import { useNotes } from "../contexts/NotesProvider";
 import { useTrash } from "../contexts/TrashProvider";
-import { useRef } from "react";
-import { useState } from "react";
-import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 export const NoteCard = ({ note }) => {
   const { pathname } = useLocation();
@@ -34,10 +31,6 @@ export const NoteCard = ({ note }) => {
   const { dispatchNotes } = useNotes();
   const { dispatchTrash } = useTrash();
   const navigate = useNavigate();
-  const ref = useRef();
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  useOnClickOutside(ref, () => setModalOpen(false));
 
   const addToArchiveHandle = async () => {
     const response = await addNoteToArchivesService(user.token, note);
