@@ -15,7 +15,6 @@ export const TextEditorModal = () => {
   const { notes } = useNotes();
   const note = notes.find((note) => note._id === noteId);
 
-  console.log(note);
   return (
     <div
       ref={ref}

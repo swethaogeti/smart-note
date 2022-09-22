@@ -16,7 +16,7 @@ export const ArchiveProvider = ({ children }) => {
     if (user.token) {
       (async () => {
         const response = await getArchivesService(user.token);
-        console.log(response);
+
         if (response !== undefined) {
           dispatchArchives({
             type: SET_ARCHIVE,
@@ -28,7 +28,7 @@ export const ArchiveProvider = ({ children }) => {
       dispatchArchives({ type: SET_ARCHIVE, payload: [] });
     }
   }, [user]);
-  console.log(archives);
+
   return (
     <ArchiveContext.Provider value={{ archives, dispatchArchives }}>
       {children}

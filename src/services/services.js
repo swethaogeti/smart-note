@@ -5,26 +5,14 @@ export const getNotesService = async (token) => {
     const response = await axios.get("/api/notes", {
       headers: { authorization: token },
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     console.log("error in fetching getNotesService", error);
     return;
   }
 };
-// export const getNotesService = async (token) => {
-//   try {
-//     const { data } = await axios.get("/api/notes", {
-//       headers: {
-//         authorization: token,
-//       },
-//     });
-//     return data.notes;
-//   } catch (error) {
-//     console.error(error);
-//     return;
-//   }
-// };
+
 export const addNoteService = async (token, note) => {
   try {
     const response = await axios.post(
